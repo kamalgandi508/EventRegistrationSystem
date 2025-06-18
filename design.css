@@ -1,0 +1,81 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.container {
+  background: #fff;
+  color: #333;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.error {
+  color: rgb(0, 255, 76);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #1e90ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.toggle {
+  margin-top: 1rem;
+  cursor: pointer;
+  color: #1e90ff;
+  font-size: 0.95rem;
+}
+
+.password-requirements {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+  text-align: left;
+}
+
+.hidden {
+  display: none;
+}

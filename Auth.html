@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Authentication</title>
+  <link rel="stylesheet" href="design.css" />
+</head>
+<body>
+  <h1>Welcome To Sri Vasavi Engineering College</h1>
+  <h2 alighn="center">Sports Events Registration</h2>
+
+  <div class="container" id="auth-container">
+    <h2 id="form-title">Sign In</h2>
+    <form id="auth-form">
+      <input type="text" id="regno" placeholder="Registration Number" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <div class="password-requirements hidden" id="password-hints">
+        <ul>
+          <li>At least 8 characters</li>
+          <li>Uppercase and lowercase letters</li>
+          <li>Number and special character</li>
+        </ul>
+      </div>
+      <div class="error" id="error-msg"></div>
+      <button type="submit" class="btn" id="submit-btn">Sign In</button>
+    </form>
+    <div class="toggle" id="toggle-form">Don't have an account? Sign Up</div>
+  </div>
+
+  <script>
+    const formTitle = document.getElementById("form-title");
+    const toggleForm = document.getElementById("toggle-form");
+    const passwordHints = document.getElementById("password-hints");
+    const errorMsg = document.getElementById("error-msg");
+    const submitBtn = document.getElementById("submit-btn");
+    const authForm = document.getElementById("auth-form");
+
+    let isSignUp = false;
+
+    toggleForm.addEventListener("click", () => {
+      isSignUp = !isSignUp;
+      formTitle.textContent = isSignUp ? "Sign Up" : "Sign In";
+      submitBtn.textContent = isSignUp ? "Register" : "Sign In";
+      toggleForm.textContent = isSignUp
+        ? "Already have an account? Sign In"
+        : "Don't have an account? Sign Up";
+      passwordHints.classList.toggle("hidden", !isSignUp);
+      errorMsg.textContent = "";
+    });
+
+    function validatePassword(password) {
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+      return regex.test(password);
+    }
+
+    authForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const regNo = document.getElementById("regno").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (isSignUp) {
+        if (!validatePassword(password)) {
+          errorMsg.textContent = "Password must meet the requirements.";
+          return;
+        }
+        const users = JSON.parse(localStorage.getItem("users") || "{}");
+        if (users[regNo]) {
+          errorMsg.textContent = "User already exists. Please sign in.";
+          return;
+        }
+        users[regNo] = password;
+        localStorage.setItem("users", JSON.stringify(users));
+        errorMsg.textContent = "Registration successful. Please sign in.";
+        isSignUp = false;
+        formTitle.textContent = "Sign In";
+        submitBtn.textContent = "Sign In";
+        toggleForm.textContent = "Don't have an account? Sign Up";
+        passwordHints.classList.add("hidden");
+      } else {
+        const users = JSON.parse(localStorage.getItem("users") || "{}");
+        if (users[regNo] === password) {
+          errorMsg.textContent = "";
+          window.location.href = "event.html";
+        } else {
+          errorMsg.textContent = "Invalid registration number or password.";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
